@@ -1,0 +1,12 @@
+10:00:00 => Starting portal 7  
+10:00:00 => Starting portal 8  
+10:00:00 => Starting portal 9  
+10:00:00 => Starting portal 10  
+10:00:00 => Starting portal 11  
+10:00:00 => Starting portal 12  
+10:00:14 => Data obtained successfully from portal "Banxico para Pagos". 
+10:00:14 => Data obtained successfully from portal "Banxico DOF". 
+10:00:17 => Data obtained successfully from portal "Banco Central de la Nación Argentina (Divisas)". 
+10:00:18 => Data obtained successfully from portal "Banxico FIX". 
+10:00:19 => Data obtained successfully from portal "Banco Central de la Nación Argentina (Billetes)". 
+10:00:28 => Data obtained successfully from portal "Banco de la República". 

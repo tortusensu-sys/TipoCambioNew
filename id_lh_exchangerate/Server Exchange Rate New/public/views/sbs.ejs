@@ -1,0 +1,63 @@
+<%- include('partials/header', {title: 'SBS' }); %>
+
+  <body>
+    <%- include('partials/navbar'); %>
+      <div class="container">
+        <div class="pt-3 pb-3 header d-flex justify-content-center">
+          <div class="d-flex align-items-center">
+            <h1 id="currentDate" class="date"></h1>
+          </div>
+        </div>
+        <p class="bd-highlight m-auto mb-3" id="programming">
+          <%=scheduleTime%>
+        </p>
+        <ul class="nav nav-tabs row" id="myTab" role="tablist">
+          <li class="nav-item row" role="presentation">
+            <button class="nav-link active btn-title col-8" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+              type="button" role="tab" aria-controls="home" aria-selected="true">Exchange rate Peru</button>
+            <button class="nav-link btn-title col-4" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+              type="button" role="tab" aria-controls="profile" aria-selected="false">Details</button>
+          </li>
+        </ul>
+        <div class="tab-content accordionExample" id="myTabContent">
+          <div class="tab-pane fade show active card-body accordion-body card-detail" id="home" role="tabpanel"
+            aria-labelledby="home-tab">
+            <% if (exchangeRateList) { %>
+              <table class="table listRates table-responsive-md">
+                <thead>
+                  <tr>
+                    <th scope="col">Publication date</th>
+                    <th scope="col">Exchange rate</th>
+                    <th scope="col">Type</th>
+                  </tr>
+                </thead>
+                <tbody id="tbody-rates">
+                  <% for (let line of exchangeRateList) { %>
+                    <tr>
+                      <td>
+                        <%= line.fecPublica %>
+                      </td>
+                      <td>
+                        <%= line.valTipo %>
+                      </td>
+                      <td>
+                        <%= line.codTipo %>
+                      </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+              </table>
+              <% } else { %>
+                ¡WAITING FOR RESULTS!
+                <% } %>
+          </div>
+          <div class="tab-pane fade card-body accordion-body" id="profile" role="tabpanel"
+            aria-labelledby="profile-tab">
+            <textarea id="textarea-detail" class="form-control" rows="3" disabled><%= log %></textarea>
+          </div>
+        </div>
+      </div>
+      <%- include('partials/scripts', {templateJS: 'sbs.js' }); %>
+  </body>
+
+  </html>
