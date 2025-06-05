@@ -2,7 +2,8 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-useless-constructor */
 const ExchangeManager = require('../../core/portal/exchangeManager')
-const axios = require('axios')
+// const axios = require('axios')
+const puppeteer = require('puppeteer')
 
 class ExchangeRateArgentinaBilletes extends ExchangeManager {
     constructor(data) {
@@ -22,22 +23,29 @@ class ExchangeRateArgentinaBilletes extends ExchangeManager {
 
             datestart = day + '/' + month + '/' + year
 
-            const urlHttp = 'https://www.bna.com.ar/Cotizador/HistoricoPrincipales'
-            const headerObj = {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }
-            const bodyObj = JSON.stringify({
-                id: 'billetes',
-                fecha: datestart,
-                filtroEuro: 0,
-                filtroDolar: 1
-            })
+            const browser = await puppeteer.launch({ headless: true })
+            const page = await browser.newPage()
+            await page.goto(`https://www.bna.com.ar/Cotizador/HistoricoPrincipales?id=billetes&fecha=${day}%2F${month}%2F2025&filtroEuro=0&filtroDolar=1`)
+            await page.waitForTimeout(5000)
+            const content = await page.content()
+            await browser.close()
+            // const urlHttp = 'https://www.bna.com.ar/Cotizador/HistoricoPrincipales'
+            // const headerObj = {
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     }
+            // }
+            // const bodyObj = JSON.stringify({
+            //     id: 'billetes',
+            //     fecha: datestart,
+            //     filtroEuro: 0,
+            //     filtroDolar: 1
+            // })
 
-            const response = await axios.post(urlHttp, bodyObj, headerObj)
+            // const response = await axios.post(urlHttp, bodyObj, headerObj)
 
-            const objars = response.data
+            // const objars = response.data
+            const objars = content
 
             let compra = 0
             let venta = 0
@@ -86,7 +94,6 @@ class ExchangeRateArgentinaBilletes extends ExchangeManager {
                     year = newDate.getFullYear()
 
                     newDate = day + '/' + month + '/' + year
-
                     resultContext = this.getExchangeRates(newDate)
                     flag = true
                 }

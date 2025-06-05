@@ -76,7 +76,7 @@ class ExchangeRateRepublicaDominicana extends ExchangeManager {
                     {
                         compra: responsePost.purchaseValue,
                         venta: responsePost.sellingValue,
-                        nomenclatura: 'CRC',
+                        nomenclatura: 'DOP',
                         date: dateElemnet,
                         namePortal: 'Banco Central Republica Dominicana'
                     }
