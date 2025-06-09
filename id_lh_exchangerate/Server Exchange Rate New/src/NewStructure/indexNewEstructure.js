@@ -28,9 +28,9 @@ const main = async() => {
     const prueba = new PortalManager()
     const portals = PortalFactory.createAll()
 
-    portals.forEach(async portal => {
-        await prueba.append(portal)
-    })
+    // portals.forEach(async portal => {
+    //     await prueba.append(portal)
+    // })
 
     const schedule = new SchedulerService(portals, prueba)
     schedule.start()

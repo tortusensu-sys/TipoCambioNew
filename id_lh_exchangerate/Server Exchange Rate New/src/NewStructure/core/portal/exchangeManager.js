@@ -10,7 +10,7 @@ class ExchangeManager {
     constructor(data) {
         this.data = data
         this.timeExecute = []
-        this.portal = null
+        this.portal = data.portal || null
         this.isNotScheduled = null
         this.month = null
         this.year = null
@@ -224,18 +224,19 @@ class ExchangeManager {
     }
 
     validateData() {
-        const { hours, minutes, isNotScheduled, month, year, portal } = this.data
+        const { hours, minutes, isNotScheduled, portal } = this.data
         console.log('Estamos usando el portal', portal)
         if (!portal) throw new BadRequest("The param 'portal' is required.")
         if (!isNotScheduled) {
             if (!hours || hours.length === 0) throw new BadRequest("The param 'hours' is required.")
 
             if (!minutes || minutes.length === 0) throw new BadRequest("The param 'minutes' is required.")
-        } else {
-            if (!month) throw new BadRequest("The param 'month' is required.")
-
-            if (!year) throw new BadRequest("The param 'year' is required.")
         }
+        // else {
+        //     if (!month) throw new BadRequest("The param 'month' is required.")
+
+        //     if (!year) throw new BadRequest("The param 'year' is required.")
+        // }
     }
 
     transformData() {
@@ -260,13 +261,16 @@ class ExchangeManager {
         this.portal = input.portal
         this.isNotScheduled = input.isNotScheduled
 
-        if (this.isNotScheduled) {
-            this.month = input.month
-            this.year = input.year
-        } else {
-            this.month = Number(new Date().getMonth()) + 1
-            this.year = Number(new Date().getFullYear())
-        }
+        this.month = Number(new Date().getMonth()) + 1
+        this.year = Number(new Date().getFullYear())
+        // esto se comenta, esta en la version original, mi sucesor que averigua para que chu sirve
+        // if (this.isNotScheduled) {
+        //     this.month = input.month
+        //     this.year = input.year
+        // } else {
+        //     this.month = Number(new Date().getMonth()) + 1
+        //     this.year = Number(new Date().getFullYear())
+        // }
     }
 
     setCurrencies(line, dataRequest, country, currency) {
